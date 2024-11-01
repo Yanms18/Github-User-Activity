@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
  async function fetchGitHubActivity(username) {
   const response = await fetch(
     `https://api.github.com/users/${username}/events`,
@@ -6,7 +8,7 @@
         "user-Agent": "node.js",
       },
     },
-  ),
+  );
 
 if (!response.ok) {
   if (response.status === 404) {
