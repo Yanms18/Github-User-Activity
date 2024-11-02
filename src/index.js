@@ -23,13 +23,20 @@ if (!response.ok) {
 
 //fucntion to display
 
-function displayActivity(events) {
+function displayActivity(events, eventType = null) {
   if (events.length === 0) {
     console.log("no recent activity found");
     return;
   }
-  
-  events.forEach((event) => {
+
+let filteredEvents;
+if (eventType) {
+  filteredEvents = events.filter((event) => event.type.toLowerCase() === eventType.toLowerCase());
+} else {
+  filteredEvents = events;
+};
+
+filteredEvents.forEach((event) => {
     let action;
     switch (event.type) {
       case "PushEvent":
@@ -54,10 +61,12 @@ function displayActivity(events) {
     }
     console.log (`-${action}`);
   });
-}
+};
 
 // Main CLI logic
 const username = process.argv[2];
+const eventType = process.argv[3];
+
 if (!username) {
   console.error('please provide a GitHub username.');
   process.exit(1);
@@ -65,10 +74,10 @@ if (!username) {
 
 fetchGitHubActivity(username)
 .then((events) => {
-  displayActivity(events);
+  displayActivity(events, eventType);
 })
 
 .catch((err) => {
   console.error(err.message);
   process.exit(1);
-});
+})
