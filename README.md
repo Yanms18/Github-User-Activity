@@ -75,5 +75,5 @@ Displays the fetched activities.
 - `eventType` (optional): The type of event to filter by.
 
 
-This project was an inspiration from 
+This project was an inspiration from https://roadmap.sh/projects/github-user-activity
 ```
